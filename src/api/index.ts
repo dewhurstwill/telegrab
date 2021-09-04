@@ -1,8 +1,9 @@
 // Node Modules
 import express from 'express';
 
-// Importing the telementry route
+// Importing routes
 import telementry from './telementry';
+import me from './me';
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ router.get('/', (req, res) => {
   });
 });
 
-// Consuming the telementry route
-router.use('/t', telementry);
+router.use('/t', telementry); // Consuming the telementry route
+router.use('/me', me); // Consuming the me route
 
 export default router;

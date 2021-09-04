@@ -32,6 +32,14 @@ app.use(express.json());
 
 // Adding root route to express
 app.get('/', (req, res) => {
+  const userAgent: string = req.headers['user-agent'];
+  let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress || '';
+  const search = `${ip}`.search(/\d/);
+  ip = search > 0 ? ip.slice(search) : ip;
+  if (
+    userAgent.toLowerCase().startsWith('curl') || 
+    userAgent.toLowerCase().startsWith('wget')
+  ) return res.send(`${ip}`);
   res.json({
     message: '🦄🌈✨👋🌎🌍🌏✨🌈🦄'
   });
